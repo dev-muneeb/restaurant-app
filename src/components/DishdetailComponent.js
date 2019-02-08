@@ -33,7 +33,7 @@ import { Link } from 'react-router-dom';
           return '';
   }
 
-  function RenderComments({comments}) {
+  function RenderComments({comments, addComment, dishId}) {
     if (comments != null)
       return(
         <div>
@@ -51,6 +51,7 @@ import { Link } from 'react-router-dom';
               );
             })}
           </ul>
+          <CommentForm dishId={dishId} addComment={addComment} />
         </div>
       );
   else
@@ -74,9 +75,7 @@ import { Link } from 'react-router-dom';
       }
 
       handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        // event.preventDefault();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
      }
 
       render() {
@@ -167,8 +166,11 @@ import { Link } from 'react-router-dom';
                         <RenderDish dish={props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} />
-                        <CommentForm />
+                        <RenderComments 
+                            comments={props.comments}
+                            addComment={props.addComment}
+                            dishId={props.dish.id}
+                        />
                     </div>
                 </div>
             </div>
