@@ -9,6 +9,7 @@ import {
     BreadcrumbItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { FadeTransform } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 import { RenderComments } from './CommentComponent';
 import { baseUrl } from '../shared/baseUrl';
@@ -16,13 +17,19 @@ import { baseUrl } from '../shared/baseUrl';
   function RenderDish({dish}) {
       if (dish != null)
           return(
-              <Card>
-                  <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-                  <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                  </CardBody>
-              </Card>
+            <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+                <Card>
+                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
           );
       else
           return '';

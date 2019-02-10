@@ -8,7 +8,8 @@ import {
     ModalHeader,
     ModalBody,
 } from 'reactstrap';
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import { Control, Form, Errors } from 'react-redux-form';
+import { Fade, Stagger } from 'react-animation-components';
 
 export function RenderComments({comments, postComment, dishId}) {
     if (comments != null)
@@ -16,17 +17,21 @@ export function RenderComments({comments, postComment, dishId}) {
         <div>
           <h4>Comments</h4>
           <ul className="list-unstyled">
-            {comments.map((comment) => {
-              const date =  new Intl.DateTimeFormat(
-                  'en-US', { year: 'numeric', month: 'short', day: '2-digit'}
-              ).format(new Date(Date.parse(comment.date)));
-              return (
-              <li>
-                <p>{comment.comment}</p>
-                <p>{`--${comment.author}, ${date}`}</p>
-              </li>
-              );
-            })}
+          <Stagger in>
+                {comments.map((comment) => {
+                const date =  new Intl.DateTimeFormat(
+                    'en-US', { year: 'numeric', month: 'short', day: '2-digit'}
+                ).format(new Date(Date.parse(comment.date)));
+                return (
+                <Fade in>
+                    <li key={comment.id}>
+                        <p>{comment.comment}</p>
+                        <p>{`--${comment.author}, ${date}`}</p>
+                    </li>
+                </Fade>
+                );
+                })}
+            </Stagger>
           </ul>
           <CommentForm dishId={dishId} postComment={postComment} />
         </div>
