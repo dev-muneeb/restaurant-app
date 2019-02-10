@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 import { Control, Form, Errors, actions } from 'react-redux-form';
 
-export function RenderComments({comments, addComment, dishId}) {
+export function RenderComments({comments, postComment, dishId}) {
     if (comments != null)
       return(
         <div>
@@ -28,7 +28,7 @@ export function RenderComments({comments, addComment, dishId}) {
               );
             })}
           </ul>
-          <CommentForm dishId={dishId} addComment={addComment} />
+          <CommentForm dishId={dishId} postComment={postComment} />
         </div>
       );
   else
@@ -45,17 +45,14 @@ export function RenderComments({comments, addComment, dishId}) {
         };
       }
 
-      toggleModal() {
-        this.setState({
-          isModalOpen: !this.state.isModalOpen
-        });
-      }
+    toggleModal() {
+    this.setState({
+        isModalOpen: !this.state.isModalOpen
+    });
+    }
 
-      andleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        this.props.resetFeedbackForm();
-        // event.preventDefault();
+    handleSubmit(values) {
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
       render() {
