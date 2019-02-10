@@ -54,7 +54,7 @@ import { baseUrl } from '../shared/baseUrl';
                 </div>
             );
         }
-        else if(props.dish != null ) 
+        else if(props.dish != null) 
         return (
             <div className="container">
                 <div className="row">
